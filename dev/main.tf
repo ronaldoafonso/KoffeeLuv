@@ -1,6 +1,6 @@
 
 module "vpc" {
-    source = "../modules/vpc"
+    source = "github.com/ronaldoafonso/KoffeeLuv-Modules//vpc?ref=vpc-0.0.1"
 
     vpc = {
         cidr_block = "172.16.0.0/16"
