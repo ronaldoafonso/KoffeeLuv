@@ -3,125 +3,119 @@ module "vpc" {
   source = "github.com/ronaldoafonso/KoffeeLuv-Modules//vpc?ref=ISSUE-2"
 
   vpc = {
-    cidr_block = "172.16.0.0/16"
+    cidr_block = var.vpc.cidr_block
 
     tags = {
-      name        = "koffeeluv-main-vpc-dev"
-      environment = "development"
+      name        = "${var.project}-main-vpc-${var.environment}"
+      environment = var.environment
     }
   }
 
   subnets = {
     publicA = {
-      cidr_block        = "172.16.1.0/24"
-      availability_zone = "us-east-2a"
-      public            = true
+      cidr_block        = var.subnets.publicA.cidr_block
+      availability_zone = var.subnets.publicA.availability_zone
+      public            = var.subnets.publicA.public == "public" ? true : false
 
       tags = {
-        name        = "koffeluv-publicA-puclic-subnet-dev"
-        environment = "development"
+        name        = "${var.project}-${var.subnets.publicA.name}-${var.subnets.publicA.public}-subnet-${var.environment}"
+        environment = var.environment
       }
     }
 
     publicB = {
-      cidr_block        = "172.16.2.0/24"
-      availability_zone = "us-east-2b"
-      public            = true
+      cidr_block        = var.subnets.publicB.cidr_block
+      availability_zone = var.subnets.publicB.availability_zone
+      public            = var.subnets.publicB.public == "public" ? true : false
 
       tags = {
-        name        = "koffeeluv-publicB-public-subnet-dev"
-        environment = "development"
+        name        = "${var.project}-${var.subnets.publicB.name}-${var.subnets.publicB.public}-subnet-${var.environment}"
+        environment = var.environment
       }
     }
 
     publicC = {
-      cidr_block        = "172.16.3.0/24"
-      availability_zone = "us-east-2c"
-      public            = true
+      cidr_block        = var.subnets.publicC.cidr_block
+      availability_zone = var.subnets.publicC.availability_zone
+      public            = var.subnets.publicC.public == "public" ? true : false
 
       tags = {
-        name        = "koffeeluv-publicC-public-subnet-dev"
-        environment = "development"
+        name        = "${var.project}-${var.subnets.publicC.name}-${var.subnets.publicC.public}-subnet-${var.environment}"
+        environment = var.environment
       }
     }
 
     AppA = {
-      cidr_block        = "172.16.4.0/24"
-      availability_zone = "us-east-2a"
-      public            = false
-      nat_gateway       = "publicA"
+      cidr_block        = var.subnets.AppA.cidr_block
+      availability_zone = var.subnets.AppA.availability_zone
+      public            = var.subnets.AppA.public == "public" ? true : false
 
       tags = {
-        name        = "koffeeluv-AppA-private-subnet-dev"
-        environment = "development"
+        name        = "${var.project}-${var.subnets.AppA.name}-${var.subnets.AppA.public}-subnet-${var.environment}"
+        environment = var.environment
       }
     }
 
     AppB = {
-      cidr_block        = "172.16.5.0/24"
-      availability_zone = "us-east-2b"
-      public            = false
-      nat_gateway       = "publicB"
+      cidr_block        = var.subnets.AppB.cidr_block
+      availability_zone = var.subnets.AppB.availability_zone
+      public            = var.subnets.AppB.public == "public" ? true : false
 
       tags = {
-        name        = "koffeeluv-AppB-private-subnet-dev"
-        environment = "development"
+        name        = "${var.project}-${var.subnets.AppB.name}-${var.subnets.AppB.public}-subnet-${var.environment}"
+        environment = var.environment
       }
     }
 
     AppC = {
-      cidr_block        = "172.16.6.0/24"
-      availability_zone = "us-east-2c"
-      public            = false
-      nat_gateway       = "publicC"
+      cidr_block        = var.subnets.AppC.cidr_block
+      availability_zone = var.subnets.AppC.availability_zone
+      public            = var.subnets.AppC.public == "public" ? true : false
 
       tags = {
-        name        = "koffeeluv-AppC-private-subnet-dev"
-        environment = "development"
+        name        = "${var.project}-${var.subnets.AppC.name}-${var.subnets.AppC.public}-subnet-${var.environment}"
+        environment = var.environment
       }
     }
 
     DbA = {
-      cidr_block        = "172.16.7.0/24"
-      availability_zone = "us-east-2a"
-      public            = false
-      nat_gateway       = "publicA"
+      cidr_block        = var.subnets.DbA.cidr_block
+      availability_zone = var.subnets.DbA.availability_zone
+      public            = var.subnets.DbA.public == "public" ? true : false
 
       tags = {
-        name        = "koffeeluv-DbA-private-subnet-dev"
-        environment = "development"
+        name        = "${var.project}-${var.subnets.DbA.name}-${var.subnets.DbA.public}-subnet-${var.environment}"
+        environment = var.environment
       }
     }
 
     DbB = {
-      cidr_block        = "172.16.8.0/24"
-      availability_zone = "us-east-2b"
-      public            = false
-      nat_gateway       = "publicB"
+      cidr_block        = var.subnets.DbB.cidr_block
+      availability_zone = var.subnets.DbB.availability_zone
+      public            = var.subnets.DbB.public == "public" ? true : false
 
       tags = {
-        name        = "koffeeluv-DbB-private-subnet-dev"
-        environment = "development"
+        name        = "${var.project}-${var.subnets.DbB.name}-${var.subnets.DbB.public}-subnet-${var.environment}"
+        environment = var.environment
       }
     }
 
     DbC = {
-      cidr_block        = "172.16.9.0/24"
-      availability_zone = "us-east-2c"
-      public            = false
-      nat_gateway       = "publicC"
+      cidr_block        = var.subnets.DbC.cidr_block
+      availability_zone = var.subnets.DbC.availability_zone
+      public            = var.subnets.DbC.public == "public" ? true : false
 
       tags = {
-        name        = "koffeeluv-DbC-private-subnet-dev"
-        environment = "development"
+        name        = "${var.project}-${var.subnets.DbC.name}-${var.subnets.DbC.public}-subnet-${var.environment}"
+        environment = var.environment
       }
     }
   }
 
   internet_gateway = {
     tags = {
-      name        = "koffeeluv-igw-dev"
-      environment = "development"
+      name        = "${var.project}-igw-${var.environment}"
+      environment = var.environment
     }
   }
 
