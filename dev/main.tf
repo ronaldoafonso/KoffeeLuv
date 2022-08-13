@@ -1,13 +1,14 @@
 
 module "vpc" {
-  source = "github.com/ronaldoafonso/KoffeeLuv-Modules//vpc?ref=ISSUE-2"
+  source = "github.com/ronaldoafonso/KoffeeLuv-Modules//vpc?ref=ISSUE-3"
+
+  environment = var.environment
 
   vpc = {
     cidr_block = var.vpc.cidr_block
 
     tags = {
       name        = "${var.project}-main-vpc-${var.environment}"
-      environment = var.environment
     }
   }
 
@@ -19,7 +20,6 @@ module "vpc" {
 
       tags = {
         name        = "${var.project}-${var.subnets.publicA.name}-${var.subnets.publicA.public}-subnet-${var.environment}"
-        environment = var.environment
       }
     }
 
@@ -30,7 +30,6 @@ module "vpc" {
 
       tags = {
         name        = "${var.project}-${var.subnets.publicB.name}-${var.subnets.publicB.public}-subnet-${var.environment}"
-        environment = var.environment
       }
     }
 
@@ -41,7 +40,6 @@ module "vpc" {
 
       tags = {
         name        = "${var.project}-${var.subnets.publicC.name}-${var.subnets.publicC.public}-subnet-${var.environment}"
-        environment = var.environment
       }
     }
 
@@ -52,7 +50,6 @@ module "vpc" {
 
       tags = {
         name        = "${var.project}-${var.subnets.AppA.name}-${var.subnets.AppA.public}-subnet-${var.environment}"
-        environment = var.environment
       }
     }
 
@@ -63,7 +60,6 @@ module "vpc" {
 
       tags = {
         name        = "${var.project}-${var.subnets.AppB.name}-${var.subnets.AppB.public}-subnet-${var.environment}"
-        environment = var.environment
       }
     }
 
@@ -74,7 +70,6 @@ module "vpc" {
 
       tags = {
         name        = "${var.project}-${var.subnets.AppC.name}-${var.subnets.AppC.public}-subnet-${var.environment}"
-        environment = var.environment
       }
     }
 
@@ -85,7 +80,6 @@ module "vpc" {
 
       tags = {
         name        = "${var.project}-${var.subnets.DbA.name}-${var.subnets.DbA.public}-subnet-${var.environment}"
-        environment = var.environment
       }
     }
 
@@ -96,7 +90,6 @@ module "vpc" {
 
       tags = {
         name        = "${var.project}-${var.subnets.DbB.name}-${var.subnets.DbB.public}-subnet-${var.environment}"
-        environment = var.environment
       }
     }
 
@@ -107,7 +100,6 @@ module "vpc" {
 
       tags = {
         name        = "${var.project}-${var.subnets.DbC.name}-${var.subnets.DbC.public}-subnet-${var.environment}"
-        environment = var.environment
       }
     }
   }
@@ -115,7 +107,6 @@ module "vpc" {
   internet_gateway = {
     tags = {
       name        = "${var.project}-igw-${var.environment}"
-      environment = var.environment
     }
   }
 
