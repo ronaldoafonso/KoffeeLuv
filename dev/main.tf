@@ -1,6 +1,6 @@
 
 module "vpc" {
-  source = "github.com/ronaldoafonso/KoffeeLuv-Modules//vpc?ref=ISSUE-3"
+  source = "github.com/ronaldoafonso/koffeeluv-modules//vpc?ref=ISSUE-4"
 
   environment = var.environment
 
@@ -110,9 +110,16 @@ module "vpc" {
     }
   }
 
-  nat_gateways = {
-    us-east-2a = "publicA"
-    us-east-2b = "publicB"
-    us-east-2c = "publicC"
-  }
+  nat_gateways = var.nat_gateways
+}
+
+module "ec2" {
+  source = "github.com/ronaldoafonso/koffeeluv-modules//ec2?ref=ISSUE-4"
+
+  environment     = var.environment
+  instances       = var.instances
+  security_groups = var.security_groups
+  key_pairs       = var.key_pairs
+  vpc_id          = module.vpc.vpc_id
+  subnets         = module.vpc.subnets
 }

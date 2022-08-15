@@ -23,3 +23,23 @@ variable "subnets" {
   description = "Subnets configuration"
   type = map
 }
+
+variable "nat_gateways" {
+  description = "A map of NAT gateway and the region they are located."
+  type        = map
+}
+
+variable "instances" {
+  description = "EC2 Instances"
+  type        = map
+}
+
+variable "security_groups" {
+  description = "Security Groups"
+  type        = map
+}
+
+variable "key_pairs" {
+  description = "SSH key pairs"
+  type        = map
+}
