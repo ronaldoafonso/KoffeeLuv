@@ -113,13 +113,20 @@ module "vpc" {
   nat_gateways = var.nat_gateways
 }
 
-module "ec2" {
-  source = "github.com/ronaldoafonso/koffeeluv-ec2?ref=v1.0.0"
+module "security" {
+  source = "github.com/ronaldoafonso/koffeeluv-security?ref=v1.0.0"
 
   environment     = var.environment
-  instances       = var.instances
   security_groups = var.security_groups
   key_pairs       = var.key_pairs
   vpc_id          = module.vpc.vpc_id
+}
+
+module "ec2" {
+  source = "github.com/ronaldoafonso/koffeeluv-ec2?ref=v1.0.1"
+
+  environment     = var.environment
+  instances       = var.instances
   subnets         = module.vpc.subnets
+  security_groups = module.security.security_groups
 }
