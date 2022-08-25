@@ -1,6 +1,6 @@
 
 module "vpc" {
-  source = "github.com/ronaldoafonso/koffeeluv-modules//vpc?ref=vpc-0.0.4"
+  source = "github.com/ronaldoafonso/koffeeluv-vpc?ref=v1.0.0"
 
   environment = var.environment
 
@@ -8,7 +8,7 @@ module "vpc" {
     cidr_block = var.vpc.cidr_block
 
     tags = {
-      name        = "${var.project}-main-vpc-${var.environment}"
+      name = "${var.project}-main-vpc-${var.environment}"
     }
   }
 
@@ -19,7 +19,7 @@ module "vpc" {
       public            = var.subnets.publicA.public == "public" ? true : false
 
       tags = {
-        name        = "${var.project}-${var.subnets.publicA.name}-${var.subnets.publicA.public}-subnet-${var.environment}"
+        name = "${var.project}-${var.subnets.publicA.name}-${var.subnets.publicA.public}-subnet-${var.environment}"
       }
     }
 
@@ -29,7 +29,7 @@ module "vpc" {
       public            = var.subnets.publicB.public == "public" ? true : false
 
       tags = {
-        name        = "${var.project}-${var.subnets.publicB.name}-${var.subnets.publicB.public}-subnet-${var.environment}"
+        name = "${var.project}-${var.subnets.publicB.name}-${var.subnets.publicB.public}-subnet-${var.environment}"
       }
     }
 
@@ -39,7 +39,7 @@ module "vpc" {
       public            = var.subnets.publicC.public == "public" ? true : false
 
       tags = {
-        name        = "${var.project}-${var.subnets.publicC.name}-${var.subnets.publicC.public}-subnet-${var.environment}"
+        name = "${var.project}-${var.subnets.publicC.name}-${var.subnets.publicC.public}-subnet-${var.environment}"
       }
     }
 
@@ -49,7 +49,7 @@ module "vpc" {
       public            = var.subnets.AppA.public == "public" ? true : false
 
       tags = {
-        name        = "${var.project}-${var.subnets.AppA.name}-${var.subnets.AppA.public}-subnet-${var.environment}"
+        name = "${var.project}-${var.subnets.AppA.name}-${var.subnets.AppA.public}-subnet-${var.environment}"
       }
     }
 
@@ -59,7 +59,7 @@ module "vpc" {
       public            = var.subnets.AppB.public == "public" ? true : false
 
       tags = {
-        name        = "${var.project}-${var.subnets.AppB.name}-${var.subnets.AppB.public}-subnet-${var.environment}"
+        name = "${var.project}-${var.subnets.AppB.name}-${var.subnets.AppB.public}-subnet-${var.environment}"
       }
     }
 
@@ -69,7 +69,7 @@ module "vpc" {
       public            = var.subnets.AppC.public == "public" ? true : false
 
       tags = {
-        name        = "${var.project}-${var.subnets.AppC.name}-${var.subnets.AppC.public}-subnet-${var.environment}"
+        name = "${var.project}-${var.subnets.AppC.name}-${var.subnets.AppC.public}-subnet-${var.environment}"
       }
     }
 
@@ -79,7 +79,7 @@ module "vpc" {
       public            = var.subnets.DbA.public == "public" ? true : false
 
       tags = {
-        name        = "${var.project}-${var.subnets.DbA.name}-${var.subnets.DbA.public}-subnet-${var.environment}"
+        name = "${var.project}-${var.subnets.DbA.name}-${var.subnets.DbA.public}-subnet-${var.environment}"
       }
     }
 
@@ -89,7 +89,7 @@ module "vpc" {
       public            = var.subnets.DbB.public == "public" ? true : false
 
       tags = {
-        name        = "${var.project}-${var.subnets.DbB.name}-${var.subnets.DbB.public}-subnet-${var.environment}"
+        name = "${var.project}-${var.subnets.DbB.name}-${var.subnets.DbB.public}-subnet-${var.environment}"
       }
     }
 
@@ -99,14 +99,14 @@ module "vpc" {
       public            = var.subnets.DbC.public == "public" ? true : false
 
       tags = {
-        name        = "${var.project}-${var.subnets.DbC.name}-${var.subnets.DbC.public}-subnet-${var.environment}"
+        name = "${var.project}-${var.subnets.DbC.name}-${var.subnets.DbC.public}-subnet-${var.environment}"
       }
     }
   }
 
   internet_gateway = {
     tags = {
-      name        = "${var.project}-igw-${var.environment}"
+      name = "${var.project}-igw-${var.environment}"
     }
   }
 
@@ -114,7 +114,7 @@ module "vpc" {
 }
 
 module "ec2" {
-  source = "github.com/ronaldoafonso/koffeeluv-modules//ec2?ref=ec2-0.0.1"
+  source = "github.com/ronaldoafonso/koffeeluv-ec2?ref=v1.0.0"
 
   environment     = var.environment
   instances       = var.instances
