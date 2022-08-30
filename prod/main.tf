@@ -130,3 +130,10 @@ module "ec2" {
   subnets         = module.vpc.subnets
   security_groups = module.security.security_groups
 }
+
+module "containers" {
+  source = "github.com/ronaldoafonso/koffeeluv-containers?ref=v1.0.0"
+
+  environment = var.environment
+  containers  = var.containers
+}

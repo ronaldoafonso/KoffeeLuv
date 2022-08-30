@@ -200,3 +200,9 @@ key_pairs = {
     public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCyTcg36y/YMyWFNfask1H0dYSe1jHpGBQRvUEvHi+S9xfgy431hxUlJFi8XmEMMjJoUuzCLdWF/Eo0Z8GOecBMFegwGG/xBYVGbgaaprhAPqZBsf5BPw0hHFdVfBDpF2YaYUttkl3GZ071YhQg/gV3q8jr9sfo9IttA/Mm/9h5mIxcYS7xCWjkISMd5jDMkbssqh3z0SDuyvxDRz6j/0qR57htWKSnc37VaDA0N7kY+E4cdgUonewxQy/lvniD9L1y+i8k3U32jtBqz9dLQT0Zhdx/vOP6hQyRY/6aw9opGYbuDln8uqgIbDiTTXt8TVOrdNoGo5sK/rkBzNAYzsoO6UenYLMrKalh8yRq/pa4tuFf3cLoQ1u/VwUHjbjPoWc8CsLvqPYqAYZKhDJ41VflnN+nNdfRH5GwQ/hVhq9oj3AsDx8gh4MUiZ/E1/bKXQVIG+rNaeOAjyvw/qtu3YSW2TGz4J2+zW3qMp7pXQ+fdhoI7IIT8oKscYjdS6SbSJc= app"
   }
 }
+
+containers = {
+  container1 = {
+    name = "koffeeluv"
+  }
+}

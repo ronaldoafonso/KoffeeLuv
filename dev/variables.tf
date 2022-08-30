@@ -43,3 +43,8 @@ variable "key_pairs" {
   description = "SSH key pairs"
   type        = map
 }
+
+variable "containers" {
+  description = "Containers"
+  type        = map
+}
