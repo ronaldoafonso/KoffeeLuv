@@ -48,3 +48,18 @@ variable "containers" {
   description = "Containers"
   type        = map
 }
+
+variable "cluster" {
+  description = "ECS cluster"
+  type        = map
+}
+
+variable "service" {
+  description = "ECS service"
+  type        = map
+}
+
+variable "task_definition" {
+  description = "ECS Task Definition"
+  type        = map
+}

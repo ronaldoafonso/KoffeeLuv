@@ -79,7 +79,7 @@ instances = {
     instance_type   = "a1.medium"
     key_name        = "bastion"
     subnet          = "publicA"
-    security_groups = ["ssh-all"]
+    security_groups = ["bastion"]
   }
   bastionB = {
     name            = "bastionB"
@@ -87,7 +87,7 @@ instances = {
     instance_type   = "a1.medium"
     key_name        = "bastion"
     subnet          = "publicB"
-    security_groups = ["ssh-all"]
+    security_groups = ["bastion"]
   }
   bastionC = {
     name            = "bastionC"
@@ -95,97 +95,61 @@ instances = {
     instance_type   = "t2.micro"
     key_name        = "bastion"
     subnet          = "publicC"
-    security_groups = ["ssh-all"]
-  }
-  appA = {
-    name            = "appA"
-    ami             = "ami-0b6eb081f3e4adf90"
-    instance_type   = "a1.medium"
-    key_name        = "app"
-    subnet          = "AppA"
-    security_groups = ["ssh-publicA"]
-  }
-  appB = {
-    name            = "appB"
-    ami             = "ami-0b6eb081f3e4adf90"
-    instance_type   = "a1.medium"
-    key_name        = "app"
-    subnet          = "AppB"
-    security_groups = ["ssh-publicB"]
-  }
-  appC = {
-    name            = "appC"
-    ami             = "ami-051dfed8f67f095f5"
-    instance_type   = "t2.micro"
-    key_name        = "app"
-    subnet          = "AppB"
-    security_groups = ["ssh-publicC"]
+    security_groups = ["bastion"]
   }
 }
 
 security_groups = {
-  ssh-all= {
-    name        = "allow-ssh"
-    description = "Allow SSH inbound traffic"
+  bastion = {
+    name        = "bastion"
+    description = "Allow SSH inbound traffic for bastion hosts."
 
     ingress = {
-      description      = "Allow SSH"
+      description      = "Allow SSH from all"
       from_port        = 22
       to_port          = 22
+      protocol         = "tcp"
+      cidr_blocks      = ["0.0.0.0/0"]
+      ipv6_cidr_blocks = ["::/0"]
+    }
+
+    egress = {
+      description      = "Allow all outbound traffic"
+      from_port        = 0
+      to_port          = 0
+      protocol         = "-1"
       cidr_blocks      = ["0.0.0.0/0"]
       ipv6_cidr_blocks = ["::/0"]
     }
 
     tags = {
-      name = "allow-ssh-security-group"
+      name = "bastion-security-group"
     }
   }
-  ssh-publicA = {
-    name        = "allow-ssh-from-publicA"
-    description = "Allow SSH inbound traffic from publicA subnet"
+  ecs-instances = {
+    name        = "ecs-instances"
+    description = "Allow SSH inbound traffic from bastion hosts"
 
     ingress = {
-      description      = "Allow SSH from publicA subnet"
+      description      = "Allow SSH from bastion hosts"
       from_port        = 22
       to_port          = 22
-      cidr_blocks      = ["172.16.1.0/24"]
+      protocol         = "tcp"
+      cidr_blocks      = ["172.16.0.0/16"]
       ipv6_cidr_blocks = ["::/0"] # IPv6 - This must be changed.
     }
 
-    tags = {
-      name = "allow-ssh-publicA-security-group"
-    }
-  }
-  ssh-publicB = {
-    name        = "allow-ssh-from-publicB"
-    description = "Allow SSH inbound traffic from publicB subnet"
-
-    ingress = {
-      description      = "Allow SSH from publicB subnet"
-      from_port        = 22
-      to_port          = 22
-      cidr_blocks      = ["172.16.2.0/24"]
-      ipv6_cidr_blocks = ["::/0"] # IPv6 - This must be changed.
+    egress = {
+      description      = "Allow all outbound traffic"
+      from_port        = 0
+      to_port          = 0
+      protocol         = "-1"
+      cidr_blocks      = ["0.0.0.0/0"]
+      ipv6_cidr_blocks = ["::/0"]
     }
 
     tags = {
-      name = "allow-ssh-publicB-security-group"
-    }
-  }
-  ssh-publicC = {
-    name        = "allow-ssh-from-publicC"
-    description = "Allow SSH inbound traffic from publicC subnet"
-
-    ingress = {
-      description      = "Allow SSH from publicC subnet"
-      from_port        = 22
-      to_port          = 22
-      cidr_blocks      = ["172.16.3.0/24"]
-      ipv6_cidr_blocks = ["::/0"] # IPv6 - This must be changed.
-    }
-
-    tags = {
-      name = "allow-ssh-publicC-security-group"
+      name = "ecs-instances-security-group"
     }
   }
 }
@@ -205,4 +169,24 @@ containers = {
   container1 = {
     name = "koffeeluv"
   }
+}
+
+cluster = {
+  name = "koffeeluv-ecs-cluster"
+}
+
+service = {
+  name = "koffeeluv-ecs-service"
+  desired_count = 1
+}
+
+task_definition = {
+  name = "koffeeluv-task-definition"
+  family = "koffeeluv-family"
+  image = "685616003259.dkr.ecr.us-east-2.amazonaws.com/koffeeluv:0.0.1"
+  account = "685616003259"
+  memory = 256
+  network_mode = "bridge"
+  container_port = 8080
+  host_port = 8080
 }
