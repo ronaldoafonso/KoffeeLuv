@@ -126,14 +126,40 @@ security_groups = {
       name = "bastion-security-group"
     }
   }
-  ecs-instances = {
-    name        = "ecs-instances"
-    description = "Allow SSH inbound traffic from bastion hosts"
+  internet-to-loadbalancer = {
+    name        = "internet-to-loadbalancer"
+    description = "Allow HTTP inbound traffic from the Internet"
 
     ingress = {
-      description      = "Allow SSH from bastion hosts"
-      from_port        = 22
-      to_port          = 22
+      description      = "Allow HTTP from the Internet"
+      from_port        = 80
+      to_port          = 80
+      protocol         = "tcp"
+      cidr_blocks      = ["0.0.0.0/0"]
+      ipv6_cidr_blocks = ["::/0"]
+    }
+
+    egress = {
+      description      = "Allow all outbound traffic"
+      from_port        = 0
+      to_port          = 0
+      protocol         = "-1"
+      cidr_blocks      = ["0.0.0.0/0"]
+      ipv6_cidr_blocks = ["::/0"]
+    }
+
+    tags = {
+      name = "loadbalancer-security-group"
+    }
+  }
+  ecs-instances = {
+    name        = "ecs-instances"
+    description = "Allow HTTP inbound traffic from private subnets"
+
+    ingress = {
+      description      = "Allow HTTP from private subnets"
+      from_port        = 8080
+      to_port          = 8080
       protocol         = "tcp"
       cidr_blocks      = ["172.16.0.0/16"]
       ipv6_cidr_blocks = ["::/0"] # IPv6 - This must be changed.

@@ -11,3 +11,7 @@ output "instances" {
 output "repositories" {
   value = {for key, repository in module.containers.repositories: key=>repository.repository_url}
 }
+
+output "loadbalancer" {
+  value = module.ec2.lb.dns_name
+}

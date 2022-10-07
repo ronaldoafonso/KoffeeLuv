@@ -123,12 +123,13 @@ module "security" {
 }
 
 module "ec2" {
-  source = "github.com/ronaldoafonso/koffeeluv-ec2?ref=v1.0.2"
+  source = "github.com/ronaldoafonso/koffeeluv-ec2?ref=v1.0.3"
 
   environment     = var.environment
   instances       = var.instances
   subnets         = module.vpc.subnets
   security_groups = module.security.security_groups
+  lb              = local.lb
 }
 
 module "containers" {
@@ -139,19 +140,11 @@ module "containers" {
 }
 
 module "cluster" {
-  source = "github.com/ronaldoafonso/koffeeluv-cluster?ref=v1.0.1"
+  source = "github.com/ronaldoafonso/koffeeluv-cluster?ref=v1.0.2"
 
   environment     = var.environment
   cluster         = var.cluster
   service         = var.service
   task_definition = var.task_definition
   asg             = local.asg
-}
-
-locals {
-  asg = {
-    key_name = "app"
-    security_group_ids = [module.security.security_groups["ecs-instances"].id]
-    subnet_ids         = [for id,subnet in module.vpc.subnets: subnet.id if startswith(id, "App")]
-  }
 }
